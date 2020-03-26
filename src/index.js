@@ -10,5 +10,5 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-app.listen(process.env.PORT); 
+const port = process.env.PORT || 3000;
+app.listen(port); 
