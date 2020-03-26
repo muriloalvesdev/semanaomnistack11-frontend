@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+const express = require('express');
+const app = express();
 
 ReactDOM.render(
   <React.StrictMode>
@@ -9,3 +11,4 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+app.listen(process.env.PORT); 
