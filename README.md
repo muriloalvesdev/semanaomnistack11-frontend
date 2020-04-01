@@ -19,9 +19,9 @@ $ yarn dev || npm start
 ______________________________________________________________________________________________________________________________
 
 
-## Tecnologie :rocket:
+## Tecnologies :rocket:
 
-- [NodeJs](https://nodejs.org/en/).
+- [NodeJs](https://nodejs.org/en/)
 - [Axios](https://www.npmjs.com/package/axios)
 - [react-icons](https://www.npmjs.com/package/react-icons)
 - [express](https://www.npmjs.com/package/express)
