@@ -1,3 +1,7 @@
+## First of all read this [Wiki](https://github.com/muriloalvesdev/semanaomnistack11-backend/wiki) by backend.
+
+
+
 ## How To Use :star:
 
 For you to be able to climb this frontend it is necessary to perform the step by step below:
@@ -11,6 +15,16 @@ $ yarn install || npm install
 
 ###### Run the API
 $ yarn dev || npm start
+
+______________________________________________________________________________________________________________________________
+
+
+## Tecnologie :rocket:
+
+- [NodeJs](https://nodejs.org/en/).
+- [Axios](https://www.npmjs.com/package/axios)
+- [react-icons](https://www.npmjs.com/package/react-icons)
+- [express](https://www.npmjs.com/package/express)
 
 ______________________________________________________________________________________________________________________________
 
