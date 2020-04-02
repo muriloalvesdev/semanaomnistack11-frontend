@@ -17,9 +17,10 @@ export default function Logon (){
 
         try{
             if(id === ''){
-                alert('Informe seu ID');
+                alert('Informe sua ID');
             }else{
                 const response = await api.post('session/', { id });
+           
                 localStorage.setItem('ongId', id);
                 localStorage.setItem('ongName', response.data.name);
 
@@ -42,10 +43,6 @@ export default function Logon (){
                         onChange={e => setId(e.target.value)}
                     />
                     <button className="button" type="submit">Entrar</button>
-                    <Link className="back-link" to="/register">
-                        <FiLogIn size={16} color="#E02041"/>
-                        Não tenho cadastro
-                    </Link>
                 </form>
             </section>
             <img src={heroesImg} alt="Heroes"/>
