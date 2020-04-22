@@ -2,8 +2,7 @@ import React, {useState} from 'react';
 import heroesImg from '../../assets/heroes.png';
 import logoImg from '../../assets/logo.svg';
 
-import { FiLogIn } from 'react-icons/fi';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import './styles.css';
 import api from '../../services/api';
@@ -17,13 +16,13 @@ export default function Logon (){
 
         try{
             if(id === ''){
-                alert('Informe sua ID');
+                alert('Informe seu CNPJ');
             }else{
-                const response = await api.post('session/', { id });
-           
+                const response = await api.get('ongs/' + id);
+                
+               
                 localStorage.setItem('ongId', id);
                 localStorage.setItem('ongName', response.data.name);
-
                 history.push('/profile');
             }
         }catch(ex){
@@ -38,7 +37,7 @@ export default function Logon (){
                 <form onSubmit={handleLogin}>
                     <h1>Faça seu logon</h1>
                     <input 
-                        placeholder="Sua ID"
+                        placeholder="Seu CNPJ"
                         value={id}
                         onChange={e => setId(e.target.value)}
                     />

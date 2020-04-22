@@ -23,6 +23,7 @@ export default function NewIncident(){
             title,
             description,
             value,
+            ongId
         };
         try{
             if(title === '' || description === '' || value === ''){

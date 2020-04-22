@@ -55,6 +55,7 @@ export default function Profile() {
             </header>
             <h1>Casos cadastrados</h1>
             
+
             <ul>
                 {incidents.map(incident => (
                     <li key = {incident.id}>
