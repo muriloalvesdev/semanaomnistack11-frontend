@@ -13,7 +13,6 @@ export default function Profile() {
     const ongName = localStorage.getItem('ongName');
     const ongId = localStorage.getItem('ongId');
     const token = localStorage.getItem('token');
-    
     useEffect(() => {
         api.get(`api/profile/${ongId}`, {
             headers: {
@@ -24,22 +23,31 @@ export default function Profile() {
         })
     }, [ongId]);
 
-   async function handleDeleteIncident(id){
+    async function handleDeleteIncident(id){
         try{
             await api.delete(`incidents/${id}/${ongId}`, {
                 headers: {
                     'Authorization': 'Bearer ' + token,
-                },
+                }
             });
-            
+
             setIncidents(incidents.filter(incident => incident.id !== id));
         }catch(ex){
             alert('Erro ao tentar deletar caso, tente novamente.')
         }
     }
 
-    function handleLogout(){
+    async function handleLogout(){
         localStorage.clear();
+        const data = {
+            token
+        }
+        await api.post(`/api/user/token-expiration/`, data, {
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            }
+        });
+        
         history.push('/');
     }
 
