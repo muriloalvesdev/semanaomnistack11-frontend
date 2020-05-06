@@ -16,7 +16,8 @@ export default function Register(){
     const [whatsapp, setWhatsapp] = useState('');
     const [city, setCity] = useState('');
     const [uf, setUf] = useState('');
-
+    const token = localStorage.getItem('token');
+    
     async function handleRegister(e){
         e.preventDefault();
 
@@ -32,7 +33,11 @@ export default function Register(){
             if(name === '' || email === '' || whatsapp === '' || city === '' || uf === ''){
                 alert('Preencha todos os campos corretamente!');
             }else{
-                const response = await api.post('ongs', data);
+                const response = await api.post('ongs', data, {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                });
                 alert(`Seu ID de acesso, salve-o: ${response.data.id}`);
                 history.push('/');
             }
