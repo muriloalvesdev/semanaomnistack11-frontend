@@ -9,16 +9,16 @@ import './styles.css';
 
 export default function Profile() {
     const history = useHistory();
-
     const [incidents, setIncidents] = useState([]);
-
     const ongName = localStorage.getItem('ongName');
     const ongId = localStorage.getItem('ongId');
+    const token = localStorage.getItem('token');
+    
     useEffect(() => {
-        api.get('profile', {
+        api.get(`api/profile/${ongId}`, {
             headers: {
-                Authorization: ongId,
-            }
+                'Authorization': 'Bearer ' + token,
+            },
         }).then(response => {
             setIncidents(response.data.incidents);
         })
@@ -26,10 +26,10 @@ export default function Profile() {
 
    async function handleDeleteIncident(id){
         try{
-            await api.delete(`incidents/${id}`, {
+            await api.delete(`incidents/${id}/${ongId}`, {
                 headers: {
-                    Authorization: ongId,
-                }
+                    'Authorization': 'Bearer ' + token,
+                },
             });
             
             setIncidents(incidents.filter(incident => incident.id !== id));

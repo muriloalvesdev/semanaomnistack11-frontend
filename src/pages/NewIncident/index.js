@@ -16,6 +16,7 @@ export default function NewIncident(){
     const[value, setValue] = useState('');
     const history = useHistory();
     const ongId = localStorage.getItem('ongId');
+    const token = localStorage.getItem('token');
 
     async function handleNewInstance(e){
         e.preventDefault();
@@ -29,9 +30,9 @@ export default function NewIncident(){
             if(title === '' || description === '' || value === ''){
                 alert('Preencha todos os campos corretamente!');
             }else{
-                await api.post('incidents', data, {
+                await api.post(`incidents/${ongId}`, data, {
                     headers: {
-                        Authorization: ongId,
+                        'Authorization': 'Bearer ' + token,
                     }
                 });
 

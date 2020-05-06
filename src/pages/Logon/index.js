@@ -9,21 +9,31 @@ import api from '../../services/api';
 
 export default function Logon (){
     const history = useHistory();
-    const [id, setId] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     async function handleLogin(e){
         e.preventDefault();
 
         try{
-            if(id === ''){
-                alert('Informe seu CNPJ');
+            if(email === '' || password === ''){
+                alert('Preencha todos os campos!');
             }else{
-                const response = await api.get('ongs/' + id);
-                
-               
-                localStorage.setItem('ongId', id);
-                localStorage.setItem('ongName', response.data.name);
-                history.push('/profile');
+                const body = {
+                    email,
+                    password
+                }
+                const response = await api.post('/api/auth/login', body);
+
+                localStorage.setItem('ongId', response.data.ongId);
+                localStorage.setItem('ongName', response.data.ongName);
+                localStorage.setItem('token', response.data.access_token)
+
+                if(response.status === 200){
+                    history.push('/profile');
+                }else{
+                    alert('E-mail ou senha estão incorretos, tente novamente!');
+                }
             }
         }catch(ex){
             alert('Falha no login, tente novamente');
@@ -35,11 +45,17 @@ export default function Logon (){
             <section className="form">
                 <img src={logoImg} alt="Be The Hero"/>
                 <form onSubmit={handleLogin}>
-                    <h1>Faça seu logon</h1>
+                    <h1>Acessar sua conta</h1>
                     <input 
-                        placeholder="Seu CNPJ"
-                        value={id}
-                        onChange={e => setId(e.target.value)}
+                        placeholder="e-mail"
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                    />
+                    <input 
+                        placeholder="senha"
+                        type="password"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
                     />
                     <button className="button" type="submit">Entrar</button>
                 </form>
