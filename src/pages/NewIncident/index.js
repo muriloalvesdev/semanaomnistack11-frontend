@@ -30,7 +30,7 @@ export default function NewIncident(){
             if(title === '' || description === '' || value === ''){
                 alert('Preencha todos os campos corretamente!');
             }else{
-                await api.post(`incidents/${ongId}`, data, {
+                await api.post(`api/incidents/${ongId}`, data, {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                     }
