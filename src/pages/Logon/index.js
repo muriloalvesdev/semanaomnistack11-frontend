@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import heroesImg from '../../assets/heroes.png';
-import logoImg from '../../assets/logo.svg';
+import logoImg from '../../assets/logo.png';
 
 import { useHistory } from 'react-router-dom';
 
@@ -43,7 +43,12 @@ export default function Logon (){
     return (
         <div className="logon-container">
             <section className="form">
-                <img src={logoImg} alt="Be The Hero"/>
+                <img 
+                    src={logoImg} 
+                    alt="Seja o Heroi"
+                    width="353" 
+                    height="140"
+                />
                 <form onSubmit={handleLogin}>
                     <h1>Acessar sua conta</h1>
                     <input 
@@ -60,7 +65,10 @@ export default function Logon (){
                     <button className="button" type="submit">Entrar</button>
                 </form>
             </section>
-            <img src={heroesImg} alt="Heroes"/>
+            <img 
+                src={heroesImg} 
+                alt="Heroes"
+            />
         </div>
     )
 }

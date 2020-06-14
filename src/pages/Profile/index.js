@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { FiPower, FiTrash2 } from 'react-icons/fi';
 
-import logImg from  '../../assets/logo.svg';
+import logImg from  '../../assets/logo.png';
 import api from '../../services/api';
 
 import './styles.css';
@@ -54,7 +54,7 @@ export default function Profile() {
     return (
         <div className="profile-container">
             <header>
-                <img src={logImg} alt="Be The Hero"/>
+                <img src={logImg} alt="Seja o Heroi"/>
                 <span>Bem vinda, {ongName}!</span>
                 <Link className="button" to="/incidents/new" >Cadastrar novo caso</Link>
                 <button onClick={handleLogout} type="button">

@@ -5,7 +5,7 @@ import './styles.css';
 import { Link, useHistory } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 
-import logoImg from '../../assets/logo.svg';
+import logoImg from '../../assets/logo.png';
 
 import api from '../../services/api';
 
@@ -46,7 +46,12 @@ export default function NewIncident(){
         <div className="new-incident-container">
             <div className="content">
                 <section>
-                    <img src={logoImg} alt="Be The Hero"/>
+                    <img 
+                        src={logoImg} 
+                        alt="Seja o Heroi"
+                        width="353" 
+                        height="140"
+                    />
                     <h1>Cadastrar novo caso</h1>
                     <p>Descreva o caso detalhadamente para encontrar um herói para resolver isso.</p>
                 
