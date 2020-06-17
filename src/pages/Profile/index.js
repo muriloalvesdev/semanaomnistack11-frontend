@@ -22,7 +22,7 @@ export default function Profile() {
         }).then(response => {
             setIncidents(response.data.incidents);
         })
-    });
+    }, [ongId]);
 
     async function handleDeleteIncident(id){
         try{
