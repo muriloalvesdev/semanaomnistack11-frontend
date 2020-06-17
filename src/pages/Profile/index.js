@@ -62,23 +62,29 @@ export default function Profile() {
                 </button>
             </header>
             <h1>Casos cadastrados</h1>
-            
-
             <ul>
                 {incidents.map(incident => (
                     <li key = {incident.id}>
-                        <strong>CASO:</strong>
-                        <p>{incident.title}</p>
-                        <strong>DESCRIÇÃO:</strong>
-                        <p>{incident.description}</p>
-                        <strong>VALOR: </strong>
-                        <p>{Intl.NumberFormat
-                            ('pt-BR', {style: 'currency', currency: 'BRL'})
-                            .format(incident.value)}</p>
-
-                        <button onClick={() => handleDeleteIncident(incident.id)} type="button">
-                            <FiTrash2 size={20} color="#a8a8b3" />
-                        </button>
+                        <div className="div-incidents">
+                            <div>
+                                <strong>CASO:</strong>
+                                <p>{incident.title}</p>
+                                <strong>DESCRIÇÃO:</strong>
+                                <p>{incident.description}</p>
+                                <strong>VALOR: </strong>
+                                <p>{Intl.NumberFormat
+                                    ('pt-BR', {style: 'currency', currency: 'BRL'})
+                                    .format(incident.value)}</p>
+                            </div>
+                            <div className="div-image-buton">
+                                <button onClick={() => handleDeleteIncident(incident.id)} type="button">
+                                    <FiTrash2 size={20} color="#a8a8b3" />
+                                </button>
+                                    <img
+                                        src={`data:image/jpg;base64,${incident.file_data}`} 
+                                    />
+                            </div>
+                        </div>
                     </li>
                 ))}
             </ul>

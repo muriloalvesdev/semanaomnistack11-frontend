@@ -6,6 +6,11 @@
 
 }
 
+.div-incidents {
+    display: flex;
+    flex-direction: row;
+}
+
 .profile-container header{
     display: flex;
     align-items: center;
@@ -60,11 +65,27 @@
     position: relative;
 }
 
+.div-image-buton {
+    flex-direction: column;
+    display: flex;
+    right: 0;
+}
+
+.div-image-buton img {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    max-width: 220px;
+    border-radius: 10px;
+}
+
 .profile-container ul li button {
     position: absolute;
+    max-height: 40px;
     right: 24px;
     top: 24px;
     border: 0;
+    background-color: transparent;
 }
 
 .profile-container ul li button:hover {
