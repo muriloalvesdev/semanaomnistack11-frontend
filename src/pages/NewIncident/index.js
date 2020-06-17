@@ -17,20 +17,36 @@ export default function NewIncident(){
     const history = useHistory();
     const ongId = localStorage.getItem('ongId');
     const token = localStorage.getItem('token');
-
+    const [selectedFile, setSelectedFile] = useState();
+     
+    function handleImage(e){
+        setSelectedFile(e.target.files[0])
+    }
     async function handleNewInstance(e){
-        e.preventDefault();
-        const data = {
-            title,
-            description,
-            value,
-            ongId
-        };
+        e.preventDefault(); 
         try{
             if(title === '' || description === '' || value === ''){
                 alert('Preencha todos os campos corretamente!');
             }else{
-                await api.post(`api/incidents/${ongId}`, data, {
+                
+                const data = {
+                    title,
+                    description,
+                    value,
+                    ongId
+                };
+
+                console.log(data)
+                const response = await api.post(`api/incidents/${ongId}`, data, {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                });
+                
+                let file = new FormData();
+                file.append('file', selectedFile);
+                
+                await api.post(`api/uploadFile/${response.data}`,file, {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                     }
@@ -77,7 +93,11 @@ export default function NewIncident(){
                         value={value}
                         onChange={e => setValue(e.target.value)}
                     />
-
+                    <input 
+                        type='file'
+                        accept='image/*' 
+                        onChange={handleImage}
+                    /> 
                     <button className="button" type="submit">Cadastrar</button>
                 </form>
             </div>
