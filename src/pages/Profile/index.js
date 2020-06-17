@@ -10,15 +10,14 @@ import './styles.css';
 export default function Profile() {
     const history = useHistory();
     const [incidents, setIncidents] = useState([]);
-    const [accessToken, setAccessToken] = useState('');
-    setAccessToken(localStorage.getItem('token'));
+    const token = localStorage.getItem('token');
     const ongName = localStorage.getItem('ongName');
     const ongId = localStorage.getItem('ongId');
 
     useEffect(() => {
         api.get(`api/profile/${ongId}`, {
             headers: {
-                'Authorization': 'Bearer ' + accessToken,
+                'Authorization': 'Bearer ' + token,
             },
         }).then(response => {
             setIncidents(response.data.incidents);
@@ -29,7 +28,7 @@ export default function Profile() {
         try{
             await api.delete(`/api/incidents/${id}/${ongId}`, {
                 headers: {
-                    'Authorization': 'Bearer ' + accessToken,
+                    'Authorization': 'Bearer ' + token,
                 }
             });
 
@@ -42,11 +41,11 @@ export default function Profile() {
     async function handleLogout(){
         localStorage.clear();
         const data = {
-            accessToken
+            token
         }
         await api.post(`/api/user/token-expiration/`, data, {
             headers: {
-                'Authorization': 'Bearer ' + accessToken,
+                'Authorization': 'Bearer ' + token,
             }
         });
         
