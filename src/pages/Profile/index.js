@@ -10,24 +10,26 @@ import './styles.css';
 export default function Profile() {
     const history = useHistory();
     const [incidents, setIncidents] = useState([]);
+    const [accessToken, setAccessToken] = useState('');
+    setAccessToken(localStorage.getItem('token'));
     const ongName = localStorage.getItem('ongName');
     const ongId = localStorage.getItem('ongId');
-    const token = localStorage.getItem('token');
+
     useEffect(() => {
         api.get(`api/profile/${ongId}`, {
             headers: {
-                'Authorization': 'Bearer ' + token,
+                'Authorization': 'Bearer ' + accessToken,
             },
         }).then(response => {
             setIncidents(response.data.incidents);
         })
-    }, [ongId]);
+    });
 
     async function handleDeleteIncident(id){
         try{
             await api.delete(`/api/incidents/${id}/${ongId}`, {
                 headers: {
-                    'Authorization': 'Bearer ' + token,
+                    'Authorization': 'Bearer ' + accessToken,
                 }
             });
 
@@ -40,11 +42,11 @@ export default function Profile() {
     async function handleLogout(){
         localStorage.clear();
         const data = {
-            token
+            accessToken
         }
         await api.post(`/api/user/token-expiration/`, data, {
             headers: {
-                'Authorization': 'Bearer ' + token,
+                'Authorization': 'Bearer ' + accessToken,
             }
         });
         
@@ -65,26 +67,18 @@ export default function Profile() {
             <ul>
                 {incidents.map(incident => (
                     <li key = {incident.id}>
-                        <div className="div-incidents">
-                            <div>
-                                <strong>CASO:</strong>
-                                <p>{incident.title}</p>
-                                <strong>DESCRIÇÃO:</strong>
-                                <p>{incident.description}</p>
-                                <strong>VALOR: </strong>
-                                <p>{Intl.NumberFormat
-                                    ('pt-BR', {style: 'currency', currency: 'BRL'})
-                                    .format(incident.value)}</p>
-                            </div>
-                            <div className="div-image-buton">
-                                <button onClick={() => handleDeleteIncident(incident.id)} type="button">
-                                    <FiTrash2 size={20} color="#a8a8b3" />
-                                </button>
-                                    <img
-                                        src={`data:image/jpg;base64,${incident.file_data}`} 
-                                    />
-                            </div>
-                        </div>
+                        <strong>CASO:</strong>
+                        <p>{incident.title}</p>
+                        <strong>DESCRIÇÃO:</strong>
+                        <p>{incident.description}</p>
+                        <strong>VALOR: </strong>
+                        <p>{Intl.NumberFormat
+                            ('pt-BR', {style: 'currency', currency: 'BRL'})
+                            .format(incident.value)}</p>
+
+                        <button onClick={() => handleDeleteIncident(incident.id)} type="button">
+                            <FiTrash2 size={20} color="#a8a8b3" />
+                        </button>
                     </li>
                 ))}
             </ul>
