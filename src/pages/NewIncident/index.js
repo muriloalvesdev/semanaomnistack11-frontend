@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import './styles.css';
 
 import { Link, useHistory } from 'react-router-dom';
@@ -83,9 +83,9 @@ export default function NewIncident(){
                         value={title}
                         onChange={e => setTitle(e.target.value)}
                     />
-                    <textarea 
-                        placeholder="Descrição"
-                        value={description}
+                    <TextareaAutosize
+                        rowsMax={5}
+                        placeholder= "Descrição - maximo de 5 linhas"
                         onChange={e => setDescription(e.target.value)}
                     />
                     <input 

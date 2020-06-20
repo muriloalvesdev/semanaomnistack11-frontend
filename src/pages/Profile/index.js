@@ -1,10 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { FiPower, FiTrash2 } from 'react-icons/fi';
 
 import logImg from  '../../assets/logo.png';
 import api from '../../services/api';
-
 import './styles.css';
 
 export default function Profile() {
@@ -22,7 +21,7 @@ export default function Profile() {
         }).then(response => {
             setIncidents(response.data.incidents);
         })
-    }, [ongId]);
+    }, [ongId, token]);
 
     async function handleDeleteIncident(id){
         try{
@@ -61,22 +60,42 @@ export default function Profile() {
                 <button onClick={handleLogout} type="button">
                     <FiPower size={18} color="#E02041" />
                 </button>
+                
             </header>
             <h1>Casos cadastrados</h1>
             <ul>
                 {incidents.map(incident => (
                     <li key = {incident.id}>
-                        <strong>CASO:</strong>
-                        <p>{incident.title}</p>
-                        <strong>DESCRIÇÃO:</strong>
-                        <p>{incident.description}</p>
-                        <strong>VALOR: </strong>
-                        <p>{Intl.NumberFormat
-                            ('pt-BR', {style: 'currency', currency: 'BRL'})
-                            .format(incident.value)}</p>
+                        <p className="title">
+                            {incident.title}
+                        </p>
 
-                        <button onClick={() => handleDeleteIncident(incident.id)} type="button">
-                            <FiTrash2 size={20} color="#a8a8b3" />
+                        <div className="div-image-buton">
+                            <img 
+                                src={`data:${incident.mime_type};base64,${incident.file_data}`} 
+                                width={170}
+                                height={160}
+                                alt="imagem do caso"
+                            />
+                        </div>
+
+                        
+                        <p className="description">
+                            {incident.description}
+                        </p>
+                        <p className="money" color="#08000">
+                            {Intl.NumberFormat('pt-BR', 
+                                {style: 'currency', 
+                                currency: 'BRL'}).format(incident.value)}
+                        </p>
+                        
+                        <button 
+                            onClick={() => handleDeleteIncident(incident.id)} 
+                            type="button">
+                                <FiTrash2 
+                                    size={20} 
+                                    color="#a8a8b3" 
+                                />
                         </button>
                     </li>
                 ))}
